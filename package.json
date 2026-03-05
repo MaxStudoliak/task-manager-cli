@@ -1,0 +1,11 @@
+{
+    "name": "task-manager-cli",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "node index.js",
+        "test": "node --test"
+    },
+    "dependencies": {}
+}
