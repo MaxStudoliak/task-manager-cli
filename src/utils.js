@@ -37,3 +37,24 @@ export function checkStatus(status) {
     }
     return null;
 }
+
+import fs from 'fs';
+import path from 'path';
+
+const LOG_FILE = './logs/log.txt';
+
+export function logAction(message) {
+    try {
+        const timestamp = new Date().toISOString();
+        const logMessage = `[${timestamp}] ${message}\n`;
+
+        const logDir = path.dirname(LOG_FILE);
+        if (!fs.existsSync(logDir)) {
+            fs.mkdirSync(logDir, { recursive: true });
+        }
+
+        fs.appendFileSync(LOG_FILE, logMessage, 'utf-8');
+    } catch (error) {
+        console.error('Помилка логування:', error.message);
+    }
+}

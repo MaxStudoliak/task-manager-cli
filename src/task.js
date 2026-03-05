@@ -24,12 +24,18 @@ export function addTask(taskData) {
 }
 
 export function getTasks(filters = {}, sortBy = "deadline") {
-    const { priority, status } = filters;
+    const { priority, status, search } = filters;
 
     let result = tasks.filter((task) => {
         const priorityMatch = priority ? task.priority === priority : true;
         const statusMatch = typeof status === "boolean" ? task.status === status : true;
-        return priorityMatch && statusMatch;
+
+        const searchMatch = search
+            ? (task.title.toLowerCase().includes(search.toLowerCase()) ||
+                task.description.toLowerCase().includes(search.toLowerCase()))
+            : true;
+
+        return priorityMatch && statusMatch && searchMatch;
     });
 
     if (sortBy === "deadline") {
